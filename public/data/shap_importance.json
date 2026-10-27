@@ -1,0 +1,126 @@
+[
+  {
+    "feature": "rockwood_frailty_index",
+    "importance": 1.1651
+  },
+  {
+    "feature": "grip_strength_kg",
+    "importance": 0.5085
+  },
+  {
+    "feature": "age",
+    "importance": 0.1311
+  },
+  {
+    "feature": "daily_steps",
+    "importance": 0.1099
+  },
+  {
+    "feature": "albumin_gl",
+    "importance": 0.1089
+  },
+  {
+    "feature": "tug_seconds",
+    "importance": 0.1011
+  },
+  {
+    "feature": "num_prescriptions",
+    "importance": 0.0964
+  },
+  {
+    "feature": "gait_speed_ms",
+    "importance": 0.0795
+  },
+  {
+    "feature": "bmi",
+    "importance": 0.0746
+  },
+  {
+    "feature": "hs_crp_mgl",
+    "importance": 0.0715
+  },
+  {
+    "feature": "vitamin_d_nmol",
+    "importance": 0.0686
+  },
+  {
+    "feature": "mna_score",
+    "importance": 0.0638
+  },
+  {
+    "feature": "systolic_bp",
+    "importance": 0.0638
+  },
+  {
+    "feature": "egfr_ml_min",
+    "importance": 0.0589
+  },
+  {
+    "feature": "sex",
+    "importance": 0.0449
+  },
+  {
+    "feature": "falls_past_year",
+    "importance": 0.0412
+  },
+  {
+    "feature": "hemoglobin_gdl",
+    "importance": 0.0412
+  },
+  {
+    "feature": "diastolic_bp",
+    "importance": 0.0401
+  },
+  {
+    "feature": "daily_active_mins",
+    "importance": 0.0324
+  },
+  {
+    "feature": "unintentional_weight_loss_kg",
+    "importance": 0.031
+  },
+  {
+    "feature": "gds_score",
+    "importance": 0.026
+  },
+  {
+    "feature": "education_level",
+    "importance": 0.0216
+  },
+  {
+    "feature": "moca_score",
+    "importance": 0.021
+  },
+  {
+    "feature": "natural_teeth",
+    "importance": 0.0208
+  },
+  {
+    "feature": "osteoarthritis",
+    "importance": 0.0203
+  },
+  {
+    "feature": "cvd_history",
+    "importance": 0.0153
+  },
+  {
+    "feature": "polypharmacy",
+    "importance": 0.0135
+  },
+  {
+    "feature": "chewing_difficulty",
+    "importance": 0.0114
+  },
+  {
+    "feature": "copd_history",
+    "importance": 0.005
+  },
+  {
+    "feature": "type2_diabetes",
+    "importance": 0.0039
+  },
+  {
+    "feature": "living_alone",
+    "importance": 0.0034
+  }
+]

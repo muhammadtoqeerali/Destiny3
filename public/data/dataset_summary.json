@@ -1,0 +1,26 @@
+{
+  "total_cohort_size": 4500,
+  "age_mean": 77.0,
+  "age_std": 6.5,
+  "female_pct": 56.1,
+  "frail_pct": 49.4,
+  "pre_frail_pct": 0.0,
+  "robust_pct": 50.6,
+  "event_rate_pct": 21.0,
+  "missing_before": {
+    "grip_strength_kg": 8.29,
+    "daily_active_mins": 8.51,
+    "daily_steps": 8.33,
+    "mna_score": 7.73,
+    "hs_crp_mgl": 7.58,
+    "vitamin_d_nmol": 7.82
+  },
+  "missing_after": {
+    "grip_strength_kg": 0.0,
+    "daily_active_mins": 0.0,
+    "daily_steps": 0.0,
+    "mna_score": 0.0,
+    "hs_crp_mgl": 0.0,
+    "vitamin_d_nmol": 0.0
+  }
+}

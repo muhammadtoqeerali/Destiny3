@@ -1,0 +1,525 @@
+[
+  {
+    "patient_id": "HUNT-70012",
+    "age": 78,
+    "sex": "Female",
+    "municipality": "Trondheim",
+    "living_alone": true,
+    "frailty_category": "Frail",
+    "rockwood_frailty_index": 0.438,
+    "adverse_risk_score": 38.9,
+    "risk_level": "Elevated",
+    "clinical_vitals": {
+      "grip_strength_kg": 21.0,
+      "gait_speed_ms": 0.68,
+      "tug_seconds": 11.9,
+      "daily_active_mins": 12.0,
+      "mna_score": 21.6,
+      "num_prescriptions": 7,
+      "falls_past_year": 1,
+      "moca_score": 19,
+      "hs_crp_mgl": 4.06,
+      "systolic_bp": 117
+    },
+    "shap_explanation": [
+      {
+        "feature": "rockwood_frailty_index",
+        "value": 0.44,
+        "attribution": 0.887,
+        "direction": "increases_risk"
+      },
+      {
+        "feature": "grip_strength_kg",
+        "value": 21.4,
+        "attribution": 0.514,
+        "direction": "increases_risk"
+      },
+      {
+        "feature": "num_prescriptions",
+        "value": 7.0,
+        "attribution": 0.238,
+        "direction": "increases_risk"
+      },
+      {
+        "feature": "albumin_gl",
+        "value": 42.3,
+        "attribution": 0.206,
+        "direction": "increases_risk"
+      },
+      {
+        "feature": "daily_steps",
+        "value": 639.0,
+        "attribution": 0.19,
+        "direction": "increases_risk"
+      },
+      {
+        "feature": "age",
+        "value": 78.4,
+        "attribution": 0.154,
+        "direction": "increases_risk"
+      }
+    ],
+    "recommended_interventions": [
+      "Trondheim Kommune Physiotherapy: Targeted balance & progressive resistance training (Otago protocol).",
+      "Clinical Nutritionist Consultation: High-protein oral supplementation (1.2g/kg/day) & dentition review.",
+      "Pharmacist Deprescribing Review: STOPP/START criteria check for anticholinergic & fall-risk drugs.",
+      "Geriatric Cognitive Assessment: Structured daily cognitive stimulation & medication adherence support."
+    ]
+  },
+  {
+    "patient_id": "HUNT-70045",
+    "age": 71,
+    "sex": "Male",
+    "municipality": "Levanger",
+    "living_alone": false,
+    "frailty_category": "Robust",
+    "rockwood_frailty_index": 0.001,
+    "adverse_risk_score": 1.5,
+    "risk_level": "Stable",
+    "clinical_vitals": {
+      "grip_strength_kg": 37.8,
+      "gait_speed_ms": 1.22,
+      "tug_seconds": 14.0,
+      "daily_active_mins": 155.9,
+      "mna_score": 28.0,
+      "num_prescriptions": 8,
+      "falls_past_year": 0,
+      "moca_score": 29,
+      "hs_crp_mgl": 1.87,
+      "systolic_bp": 139
+    },
+    "shap_explanation": [
+      {
+        "feature": "rockwood_frailty_index",
+        "value": 0.0,
+        "attribution": -1.206,
+        "direction": "decreases_risk"
+      },
+      {
+        "feature": "grip_strength_kg",
+        "value": 37.8,
+        "attribution": -0.433,
+        "direction": "decreases_risk"
+      },
+      {
+        "feature": "daily_steps",
+        "value": 6784.0,
+        "attribution": -0.114,
+        "direction": "decreases_risk"
+      },
+      {
+        "feature": "vitamin_d_nmol",
+        "value": 78.8,
+        "attribution": 0.11,
+        "direction": "increases_risk"
+      },
+      {
+        "feature": "age",
+        "value": 71.9,
+        "attribution": -0.11,
+        "direction": "decreases_risk"
+      },
+      {
+        "feature": "num_prescriptions",
+        "value": 8.0,
+        "attribution": 0.084,
+        "direction": "increases_risk"
+      }
+    ],
+    "recommended_interventions": [
+      "Trondheim Kommune Physiotherapy: Targeted balance & progressive resistance training (Otago protocol).",
+      "Pharmacist Deprescribing Review: STOPP/START criteria check for anticholinergic & fall-risk drugs."
+    ]
+  },
+  {
+    "patient_id": "HUNT-70088",
+    "age": 73,
+    "sex": "Female",
+    "municipality": "Levanger",
+    "living_alone": false,
+    "frailty_category": "Robust",
+    "rockwood_frailty_index": 0.001,
+    "adverse_risk_score": 0.8,
+    "risk_level": "Stable",
+    "clinical_vitals": {
+      "grip_strength_kg": 21.0,
+      "gait_speed_ms": 1.35,
+      "tug_seconds": 11.5,
+      "daily_active_mins": 156.3,
+      "mna_score": 19.7,
+      "num_prescriptions": 3,
+      "falls_past_year": 1,
+      "moca_score": 22,
+      "hs_crp_mgl": 2.31,
+      "systolic_bp": 156
+    },
+    "shap_explanation": [
+      {
+        "feature": "rockwood_frailty_index",
+        "value": 0.0,
+        "attribution": -1.235,
+        "direction": "decreases_risk"
+      },
+      {
+        "feature": "grip_strength_kg",
+        "value": 30.12,
+        "attribution": -0.625,
+        "direction": "decreases_risk"
+      },
+      {
+        "feature": "daily_steps",
+        "value": 6313.0,
+        "attribution": -0.273,
+        "direction": "decreases_risk"
+      },
+      {
+        "feature": "tug_seconds",
+        "value": 11.5,
+        "attribution": -0.204,
+        "direction": "decreases_risk"
+      },
+      {
+        "feature": "gait_speed_ms",
+        "value": 1.35,
+        "attribution": -0.143,
+        "direction": "decreases_risk"
+      },
+      {
+        "feature": "age",
+        "value": 73.2,
+        "attribution": -0.122,
+        "direction": "decreases_risk"
+      }
+    ],
+    "recommended_interventions": [
+      "Clinical Nutritionist Consultation: High-protein oral supplementation (1.2g/kg/day) & dentition review.",
+      "Geriatric Cognitive Assessment: Structured daily cognitive stimulation & medication adherence support."
+    ]
+  },
+  {
+    "patient_id": "HUNT-70142",
+    "age": 65,
+    "sex": "Female",
+    "municipality": "Steinkjer",
+    "living_alone": false,
+    "frailty_category": "Frail",
+    "rockwood_frailty_index": 0.437,
+    "adverse_risk_score": 3.7,
+    "risk_level": "Stable",
+    "clinical_vitals": {
+      "grip_strength_kg": 24.8,
+      "gait_speed_ms": 1.41,
+      "tug_seconds": 10.8,
+      "daily_active_mins": 151.6,
+      "mna_score": 23.6,
+      "num_prescriptions": 2,
+      "falls_past_year": 0,
+      "moca_score": 26,
+      "hs_crp_mgl": 1.41,
+      "systolic_bp": 176
+    },
+    "shap_explanation": [
+      {
+        "feature": "rockwood_frailty_index",
+        "value": 0.44,
+        "attribution": 0.561,
+        "direction": "increases_risk"
+      },
+      {
+        "feature": "albumin_gl",
+        "value": 42.7,
+        "attribution": 0.336,
+        "direction": "increases_risk"
+      },
+      {
+        "feature": "age",
+        "value": 65.9,
+        "attribution": -0.207,
+        "direction": "decreases_risk"
+      },
+      {
+        "feature": "grip_strength_kg",
+        "value": 24.8,
+        "attribution": 0.165,
+        "direction": "increases_risk"
+      },
+      {
+        "feature": "hemoglobin_gdl",
+        "value": 15.6,
+        "attribution": 0.138,
+        "direction": "increases_risk"
+      },
+      {
+        "feature": "systolic_bp",
+        "value": 176.0,
+        "attribution": 0.114,
+        "direction": "increases_risk"
+      }
+    ],
+    "recommended_interventions": [
+      "Routine annual HUNT surveillance: Maintain physical community activity group."
+    ]
+  },
+  {
+    "patient_id": "HUNT-70210",
+    "age": 80,
+    "sex": "Female",
+    "municipality": "Levanger",
+    "living_alone": true,
+    "frailty_category": "Frail",
+    "rockwood_frailty_index": 0.996,
+    "adverse_risk_score": 94.0,
+    "risk_level": "Critical",
+    "clinical_vitals": {
+      "grip_strength_kg": 14.8,
+      "gait_speed_ms": 0.97,
+      "tug_seconds": 13.9,
+      "daily_active_mins": 40.9,
+      "mna_score": 19.7,
+      "num_prescriptions": 8,
+      "falls_past_year": 0,
+      "moca_score": 26,
+      "hs_crp_mgl": 0.57,
+      "systolic_bp": 135
+    },
+    "shap_explanation": [
+      {
+        "feature": "rockwood_frailty_index",
+        "value": 1.0,
+        "attribution": 3.06,
+        "direction": "increases_risk"
+      },
+      {
+        "feature": "grip_strength_kg",
+        "value": 14.8,
+        "attribution": 1.524,
+        "direction": "increases_risk"
+      },
+      {
+        "feature": "num_prescriptions",
+        "value": 8.0,
+        "attribution": 0.224,
+        "direction": "increases_risk"
+      },
+      {
+        "feature": "hs_crp_mgl",
+        "value": 0.57,
+        "attribution": -0.185,
+        "direction": "decreases_risk"
+      },
+      {
+        "feature": "bmi",
+        "value": 26.1,
+        "attribution": 0.176,
+        "direction": "increases_risk"
+      },
+      {
+        "feature": "daily_steps",
+        "value": 450.0,
+        "attribution": 0.17,
+        "direction": "increases_risk"
+      }
+    ],
+    "recommended_interventions": [
+      "Trondheim Kommune Physiotherapy: Targeted balance & progressive resistance training (Otago protocol).",
+      "Clinical Nutritionist Consultation: High-protein oral supplementation (1.2g/kg/day) & dentition review.",
+      "Pharmacist Deprescribing Review: STOPP/START criteria check for anticholinergic & fall-risk drugs."
+    ]
+  },
+  {
+    "patient_id": "HUNT-70315",
+    "age": 76,
+    "sex": "Female",
+    "municipality": "Levanger",
+    "living_alone": false,
+    "frailty_category": "Frail",
+    "rockwood_frailty_index": 0.437,
+    "adverse_risk_score": 21.9,
+    "risk_level": "Stable",
+    "clinical_vitals": {
+      "grip_strength_kg": 20.0,
+      "gait_speed_ms": 1.02,
+      "tug_seconds": 14.3,
+      "daily_active_mins": 168.8,
+      "mna_score": 24.3,
+      "num_prescriptions": 3,
+      "falls_past_year": 2,
+      "moca_score": 22,
+      "hs_crp_mgl": 3.07,
+      "systolic_bp": 148
+    },
+    "shap_explanation": [
+      {
+        "feature": "rockwood_frailty_index",
+        "value": 0.44,
+        "attribution": 0.747,
+        "direction": "increases_risk"
+      },
+      {
+        "feature": "grip_strength_kg",
+        "value": 20.0,
+        "attribution": 0.317,
+        "direction": "increases_risk"
+      },
+      {
+        "feature": "falls_past_year",
+        "value": 2.0,
+        "attribution": 0.147,
+        "direction": "increases_risk"
+      },
+      {
+        "feature": "num_prescriptions",
+        "value": 3.0,
+        "attribution": -0.117,
+        "direction": "decreases_risk"
+      },
+      {
+        "feature": "daily_steps",
+        "value": 6038.0,
+        "attribution": -0.066,
+        "direction": "decreases_risk"
+      },
+      {
+        "feature": "albumin_gl",
+        "value": 44.3,
+        "attribution": 0.045,
+        "direction": "increases_risk"
+      }
+    ],
+    "recommended_interventions": [
+      "Trondheim Kommune Physiotherapy: Targeted balance & progressive resistance training (Otago protocol).",
+      "Geriatric Cognitive Assessment: Structured daily cognitive stimulation & medication adherence support."
+    ]
+  },
+  {
+    "patient_id": "HUNT-70420",
+    "age": 90,
+    "sex": "Female",
+    "municipality": "Steinkjer",
+    "living_alone": false,
+    "frailty_category": "Frail",
+    "rockwood_frailty_index": 0.44,
+    "adverse_risk_score": 56.1,
+    "risk_level": "Elevated",
+    "clinical_vitals": {
+      "grip_strength_kg": 17.1,
+      "gait_speed_ms": 0.53,
+      "tug_seconds": 19.7,
+      "daily_active_mins": 63.3,
+      "mna_score": 19.1,
+      "num_prescriptions": 9,
+      "falls_past_year": 4,
+      "moca_score": 23,
+      "hs_crp_mgl": 2.1,
+      "systolic_bp": 145
+    },
+    "shap_explanation": [
+      {
+        "feature": "rockwood_frailty_index",
+        "value": 0.44,
+        "attribution": 2.24,
+        "direction": "increases_risk"
+      },
+      {
+        "feature": "grip_strength_kg",
+        "value": 17.1,
+        "attribution": 0.61,
+        "direction": "increases_risk"
+      },
+      {
+        "feature": "age",
+        "value": 90.8,
+        "attribution": 0.288,
+        "direction": "increases_risk"
+      },
+      {
+        "feature": "egfr_ml_min",
+        "value": 52.1,
+        "attribution": 0.169,
+        "direction": "increases_risk"
+      },
+      {
+        "feature": "gait_speed_ms",
+        "value": 0.53,
+        "attribution": 0.156,
+        "direction": "increases_risk"
+      },
+      {
+        "feature": "num_prescriptions",
+        "value": 9.0,
+        "attribution": 0.155,
+        "direction": "increases_risk"
+      }
+    ],
+    "recommended_interventions": [
+      "Trondheim Kommune Physiotherapy: Targeted balance & progressive resistance training (Otago protocol).",
+      "Clinical Nutritionist Consultation: High-protein oral supplementation (1.2g/kg/day) & dentition review.",
+      "Pharmacist Deprescribing Review: STOPP/START criteria check for anticholinergic & fall-risk drugs.",
+      "Geriatric Cognitive Assessment: Structured daily cognitive stimulation & medication adherence support."
+    ]
+  },
+  {
+    "patient_id": "HUNT-70560",
+    "age": 78,
+    "sex": "Male",
+    "municipality": "Stjordal",
+    "living_alone": false,
+    "frailty_category": "Robust",
+    "rockwood_frailty_index": 0.001,
+    "adverse_risk_score": 1.4,
+    "risk_level": "Stable",
+    "clinical_vitals": {
+      "grip_strength_kg": 32.6,
+      "gait_speed_ms": 0.92,
+      "tug_seconds": 9.0,
+      "daily_active_mins": 112.2,
+      "mna_score": 22.8,
+      "num_prescriptions": 8,
+      "falls_past_year": 0,
+      "moca_score": 24,
+      "hs_crp_mgl": 4.28,
+      "systolic_bp": 142
+    },
+    "shap_explanation": [
+      {
+        "feature": "rockwood_frailty_index",
+        "value": 0.0,
+        "attribution": -1.32,
+        "direction": "decreases_risk"
+      },
+      {
+        "feature": "grip_strength_kg",
+        "value": 32.6,
+        "attribution": -0.638,
+        "direction": "decreases_risk"
+      },
+      {
+        "feature": "albumin_gl",
+        "value": 43.4,
+        "attribution": 0.214,
+        "direction": "increases_risk"
+      },
+      {
+        "feature": "bmi",
+        "value": 20.3,
+        "attribution": 0.121,
+        "direction": "increases_risk"
+      },
+      {
+        "feature": "tug_seconds",
+        "value": 9.0,
+        "attribution": 0.115,
+        "direction": "increases_risk"
+      },
+      {
+        "feature": "systolic_bp",
+        "value": 142.0,
+        "attribution": -0.09,
+        "direction": "decreases_risk"
+      }
+    ],
+    "recommended_interventions": [
+      "Pharmacist Deprescribing Review: STOPP/START criteria check for anticholinergic & fall-risk drugs."
+    ]
+  }
+]

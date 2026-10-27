@@ -1,0 +1,47 @@
+{
+  "LightGBM": {
+    "roc_auc": 0.8644,
+    "roc_auc_std": 0.0131,
+    "pr_auc": 0.6994,
+    "brier_score": 0.1039,
+    "f1_score": 0.598,
+    "sensitivity": 0.5915,
+    "specificity": 0.8968
+  },
+  "XGBoost": {
+    "roc_auc": 0.8711,
+    "roc_auc_std": 0.0145,
+    "pr_auc": 0.7022,
+    "brier_score": 0.1028,
+    "f1_score": 0.6032,
+    "sensitivity": 0.5905,
+    "specificity": 0.9024
+  },
+  "Random Forest": {
+    "roc_auc": 0.8731,
+    "roc_auc_std": 0.0126,
+    "pr_auc": 0.7108,
+    "brier_score": 0.1014,
+    "f1_score": 0.6067,
+    "sensitivity": 0.563,
+    "specificity": 0.9218
+  },
+  "ElasticNet Logistic Regression": {
+    "roc_auc": 0.8719,
+    "roc_auc_std": 0.0123,
+    "pr_auc": 0.713,
+    "brier_score": 0.1007,
+    "f1_score": 0.6152,
+    "sensitivity": 0.5915,
+    "specificity": 0.9117
+  },
+  "Neural Network (MLP)": {
+    "roc_auc": 0.7957,
+    "roc_auc_std": 0.0218,
+    "pr_auc": 0.5942,
+    "brier_score": 0.1737,
+    "f1_score": 0.5313,
+    "sensitivity": 0.5323,
+    "specificity": 0.8748
+  }
+}
