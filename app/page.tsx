@@ -2,17 +2,14 @@
 
 import React, { useState, useMemo } from 'react';
 import { 
-  Activity, Shield, Stethoscope, Database, Cpu, Sliders, ChevronRight, 
-  TrendingUp, AlertTriangle, CheckCircle, Info, Lock, LogOut, ArrowRight,
-  User, Heart, FileText, Zap, BarChart2, RefreshCw
+  Shield, Stethoscope, Database, Cpu, Sliders, ChevronRight, 
+  CheckCircle, Info, Lock, LogOut, BarChart2, RefreshCw, Zap
 } from 'lucide-react';
 import { 
   ResponsiveContainer, LineChart, Line, BarChart, Bar, XAxis, YAxis, 
-  Tooltip, CartesianGrid, Legend, RadarChart, PolarGrid, PolarAngleAxis, 
-  PolarRadiusAxis, Radar 
+  Tooltip, CartesianGrid
 } from 'recharts';
 
-// Import pre-calculated pipeline outputs
 import benchmarkData from '../public/data/benchmark_results.json';
 import curvesData from '../public/data/curves_data.json';
 import shapImportanceData from '../public/data/shap_importance.json';
@@ -25,20 +22,17 @@ export default function DigiFrailApp() {
   const [passwordInput, setPasswordInput] = useState('');
   const [authError, setAuthError] = useState(false);
 
-  // Selected patient for Doctor View
   const [selectedPatientId, setSelectedPatientId] = useState(initialPatients[0]?.patient_id || 'HUNT-70012');
   const selectedPatient = useMemo(() => {
     return initialPatients.find(p => p.patient_id === selectedPatientId) || initialPatients[0];
   }, [selectedPatientId]);
 
-  // "What-If" Counterfactual Simulation State
   const [simGrip, setSimGrip] = useState<number>(selectedPatient.clinical_vitals.grip_strength_kg);
   const [simGait, setSimGait] = useState<number>(selectedPatient.clinical_vitals.gait_speed_ms);
   const [simActiveMins, setSimActiveMins] = useState<number>(selectedPatient.clinical_vitals.daily_active_mins);
   const [simMNA, setSimMNA] = useState<number>(selectedPatient.clinical_vitals.mna_score);
   const [simPrescriptions, setSimPrescriptions] = useState<number>(selectedPatient.clinical_vitals.num_prescriptions);
 
-  // Update simulator whenever selected patient changes
   const handleSelectPatient = (id: string) => {
     setSelectedPatientId(id);
     const p = initialPatients.find(x => x.patient_id === id);
@@ -51,12 +45,10 @@ export default function DigiFrailApp() {
     }
   };
 
-  // Real-time counterfactual model inference (calibrated surrogate of the trained LightGBM)
   const counterfactualOutcome = useMemo(() => {
     const age = selectedPatient.age;
     const sexCoef = selectedPatient.sex === 'Male' ? 0.3 : 0.0;
     
-    // Non-linear hazard function calibrated to HUNT 70+ model outputs
     const baselineHazard = -4.1 + (age - 70) * 0.045 + sexCoef;
     const gripDelta = (28 - simGrip) * 0.06;
     const gaitDelta = (1.0 - simGait) * 1.8;
@@ -68,7 +60,6 @@ export default function DigiFrailApp() {
     const prob = 1 / (1 + Math.exp(-logOdds));
     const predictedRisk = Math.min(Math.max(Math.round(prob * 1000) / 10, 3.0), 96.0);
     
-    // Frailty index calculation
     const simulatedFI = Math.min(Math.max(
       Math.round((selectedPatient.rockwood_frailty_index + (predictedRisk - selectedPatient.adverse_risk_score) * 0.004) * 100) / 100, 
       0.05
@@ -81,7 +72,6 @@ export default function DigiFrailApp() {
     };
   }, [selectedPatient, simGrip, simGait, simActiveMins, simMNA, simPrescriptions]);
 
-  // Admin authentication handler
   const handleAdminLogin = (e: React.FormEvent) => {
     e.preventDefault();
     if (passwordInput === 'admin123') {
@@ -94,7 +84,6 @@ export default function DigiFrailApp() {
 
   return (
     <div className="min-h-screen flex flex-col bg-slate-50 text-slate-900">
-      {/* Top Navigation Bar: NTNU / Digi-FrailCare Scandinavian Theme */}
       <header className="bg-slate-900 text-white border-b border-slate-800 sticky top-0 z-50 shadow-md">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
           <div className="flex items-center space-x-3">
@@ -107,7 +96,7 @@ export default function DigiFrailApp() {
                 <span className="bg-blue-900 text-blue-200 text-xs px-2 py-0.5 rounded font-mono font-medium">HUNT 70+ ML</span>
                 <span className="text-xs text-slate-400 hidden sm:inline">| Trondheim Pilot</span>
               </div>
-              <p className="text-xs text-slate-400">Postdoctoral Research & Clinical Decision Support System</p>
+              <p className="text-xs text-slate-400">Postdoctoral Research and Clinical Decision Support System</p>
             </div>
           </div>
 
@@ -138,7 +127,6 @@ export default function DigiFrailApp() {
         </div>
       </header>
 
-      {/* Interactive Architecture Flow Banner */}
       <div className="bg-white border-b border-slate-200 py-3 px-4 shadow-sm">
         <div className="max-w-7xl mx-auto flex flex-wrap items-center justify-between gap-3 text-xs text-slate-600">
           <div className="flex items-center space-x-2 font-medium text-slate-800">
@@ -159,17 +147,14 @@ export default function DigiFrailApp() {
         </div>
       </div>
 
-      {/* Main Content Body */}
       <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6 flex-1 w-full">
         {activeTab === 'doctor' ? (
-          /* ==================== DOCTOR PORTAL ==================== */
           <div className="space-y-6">
-            {/* Header Description */}
             <div className="flex flex-col md:flex-row justify-between items-start md:items-center bg-white p-5 rounded-xl border border-slate-200 shadow-sm gap-4">
               <div>
                 <h1 className="text-xl font-bold text-slate-900 flex items-center gap-2">
                   <Stethoscope className="w-5 h-5 text-blue-600" />
-                  Clinical Frailty Risk Stratification & Counterfactual Decision Support
+                  Clinical Frailty Risk Stratification and Decision Support
                 </h1>
                 <p className="text-sm text-slate-500 mt-1">
                   Predicting 12-month risk of acute hospitalization, fall-related fracture, or severe functional decline using HUNT 70+ ML.
@@ -180,12 +165,11 @@ export default function DigiFrailApp() {
                   <CheckCircle className="w-3.5 h-3.5 mr-1" /> Model Calibrated (Brier: 0.122)
                 </span>
                 <span className="inline-flex items-center px-2.5 py-1 rounded-full bg-blue-100 text-blue-800 font-medium">
-                  Trondelag Cohort Active
+                  Troendelag Cohort Active
                 </span>
               </div>
             </div>
 
-            {/* Patient Selector Bar */}
             <div className="bg-white p-4 rounded-xl border border-slate-200 shadow-sm">
               <div className="text-xs font-semibold text-slate-500 uppercase tracking-wider mb-2">Select Monitored Patient (HUNT 70+ Cohort)</div>
               <div className="grid grid-cols-2 sm:grid-cols-4 md:grid-cols-8 gap-2">
@@ -218,15 +202,13 @@ export default function DigiFrailApp() {
               </div>
             </div>
 
-            {/* Patient Detailed Overview Grid */}
             <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
-              {/* Left Column: Patient Profile & Biomarkers */}
               <div className="bg-white rounded-xl border border-slate-200 p-5 shadow-sm space-y-5">
                 <div className="flex items-center justify-between pb-3 border-b border-slate-100">
                   <div>
                     <h2 className="text-lg font-bold text-slate-900">{selectedPatient.patient_id}</h2>
                     <p className="text-xs text-slate-500">
-                      {selectedPatient.age} years old • {selectedPatient.sex} • {selectedPatient.municipality} Kommune
+                      {selectedPatient.age} years old | {selectedPatient.sex} | {selectedPatient.municipality} Kommune
                     </p>
                   </div>
                   <span className={`px-3 py-1 rounded-full text-xs font-bold ${
@@ -238,28 +220,26 @@ export default function DigiFrailApp() {
                   </span>
                 </div>
 
-                {/* Key Clinical Indices */}
                 <div className="grid grid-cols-2 gap-3">
                   <div className="bg-slate-50 p-3 rounded-lg border border-slate-100">
                     <span className="text-xs text-slate-500">Rockwood FI (36 Deficits)</span>
                     <div className="text-xl font-bold text-slate-900 mt-1">{selectedPatient.rockwood_frailty_index}</div>
-                    <span className="text-[11px] text-slate-400">Classification: {selectedPatient.frailty_category}</span>
+                    <span className="text-[11px] text-slate-400">Status: {selectedPatient.frailty_category}</span>
                   </div>
                   <div className="bg-slate-50 p-3 rounded-lg border border-slate-100">
-                    <span className="text-xs text-slate-500">12M Adverse Event Probability</span>
+                    <span className="text-xs text-slate-500">12M Adverse Risk</span>
                     <div className={`text-xl font-bold mt-1 ${
                       selectedPatient.adverse_risk_score >= 50 ? 'text-red-600' : 'text-emerald-600'
                     }`}>
                       {selectedPatient.adverse_risk_score}%
                     </div>
-                    <span className="text-[11px] text-slate-400">Model: LightGBM (NTNU)</span>
+                    <span className="text-[11px] text-slate-400">Model: LightGBM</span>
                   </div>
                 </div>
 
-                {/* Sensor & Biomarker Table */}
                 <div>
                   <h3 className="text-xs font-semibold text-slate-500 uppercase tracking-wider mb-2">
-                    Objective Sensor & Clinical Biomarkers
+                    Sensor and Clinical Biomarkers
                   </h3>
                   <div className="divide-y divide-slate-100 text-xs">
                     <div className="py-2 flex justify-between">
@@ -273,7 +253,7 @@ export default function DigiFrailApp() {
                       </span>
                     </div>
                     <div className="py-2 flex justify-between">
-                      <span className="text-slate-600">Timed Up & Go (TUG)</span>
+                      <span className="text-slate-600">Timed Up and Go (TUG)</span>
                       <span className="font-semibold text-slate-900">{selectedPatient.clinical_vitals.tug_seconds} sec</span>
                     </div>
                     <div className="py-2 flex justify-between">
@@ -303,7 +283,6 @@ export default function DigiFrailApp() {
                   </div>
                 </div>
 
-                {/* Recommended Interventions */}
                 <div className="bg-blue-50 border border-blue-200 rounded-lg p-3">
                   <h4 className="text-xs font-bold text-blue-900 flex items-center gap-1.5 mb-1.5">
                     <Zap className="w-3.5 h-3.5 text-blue-700" />
@@ -317,7 +296,6 @@ export default function DigiFrailApp() {
                 </div>
               </div>
 
-              {/* Middle Column: Explainable AI (SHAP Waterfall) */}
               <div className="bg-white rounded-xl border border-slate-200 p-5 shadow-sm space-y-4">
                 <div>
                   <div className="flex items-center justify-between">
@@ -328,7 +306,7 @@ export default function DigiFrailApp() {
                     <span className="text-[11px] bg-purple-50 text-purple-700 px-2 py-0.5 rounded font-mono font-medium">TreeExplainer</span>
                   </div>
                   <p className="text-xs text-slate-500 mt-1">
-                    Decomposition of individual patient factors pushing the 12-month hazard above or below the population baseline.
+                    Decomposition of individual patient factors pushing the 12-month hazard above or below the baseline.
                   </p>
                 </div>
 
@@ -362,7 +340,7 @@ export default function DigiFrailApp() {
                           )}
                         </div>
                         <div className="text-[10px] text-slate-400 flex justify-between">
-                          <span>{isPositive ? '^ Increases Risk' : 'v Protective Effect'}</span>
+                          <span>{isPositive ? 'Increases Risk' : 'Protective Effect'}</span>
                           <span>SHAP Value</span>
                         </div>
                       </div>
@@ -376,13 +354,12 @@ export default function DigiFrailApp() {
                   </div>
                   <p>
                     {selectedPatient.shap_explanation[0]?.direction === 'increases_risk'
-                      ? `Primary risk amplifier is ${selectedPatient.shap_explanation[0]?.feature.replace(/_/g, ' ')}. Prioritize rehabilitation or dosage modulation to curb adverse trajectories.`
-                      : `Favorable functional reserve in ${selectedPatient.shap_explanation[0]?.feature.replace(/_/g, ' ')} provides significant resilience against imminent acute decline.`}
+                      ? `Primary risk driver is ${selectedPatient.shap_explanation[0]?.feature.replace(/_/g, ' ')}. Prioritize targeted intervention to curb decline.`
+                      : `Favorable functional reserve in ${selectedPatient.shap_explanation[0]?.feature.replace(/_/g, ' ')} provides significant clinical resilience.`}
                   </p>
                 </div>
               </div>
 
-              {/* Right Column: Real-Time Counterfactual "What-If" Simulator */}
               <div className="bg-white rounded-xl border border-blue-200 p-5 shadow-sm space-y-5 ring-1 ring-blue-500/10">
                 <div className="flex items-center justify-between pb-3 border-b border-slate-100">
                   <div>
@@ -403,7 +380,6 @@ export default function DigiFrailApp() {
                   </button>
                 </div>
 
-                {/* Simulated Outcome Display */}
                 <div className="bg-gradient-to-br from-slate-900 to-slate-800 text-white p-4 rounded-xl shadow-inner">
                   <div className="flex justify-between items-center mb-1">
                     <span className="text-xs text-slate-300">Simulated 12M Adverse Risk</span>
@@ -427,9 +403,7 @@ export default function DigiFrailApp() {
                   </div>
                 </div>
 
-                {/* Interactive Sliders */}
                 <div className="space-y-3.5 text-xs">
-                  {/* Grip Strength */}
                   <div>
                     <div className="flex justify-between font-medium text-slate-700 mb-1">
                       <span>Target Grip Strength (Resistance Training)</span>
@@ -450,7 +424,6 @@ export default function DigiFrailApp() {
                     </div>
                   </div>
 
-                  {/* Gait Speed */}
                   <div>
                     <div className="flex justify-between font-medium text-slate-700 mb-1">
                       <span>Gait Speed (Gait Rehab / Otago)</span>
@@ -471,7 +444,6 @@ export default function DigiFrailApp() {
                     </div>
                   </div>
 
-                  {/* Daily Active Minutes */}
                   <div>
                     <div className="flex justify-between font-medium text-slate-700 mb-1">
                       <span>Daily Active Minutes (Wearable Target)</span>
@@ -488,11 +460,10 @@ export default function DigiFrailApp() {
                     />
                     <div className="flex justify-between text-[10px] text-slate-400">
                       <span>20 min (Sedentary)</span>
-                      <span>240 min (Highly Active)</span>
+                      <span>240 min (Active)</span>
                     </div>
                   </div>
 
-                  {/* Nutritional Score (MNA) */}
                   <div>
                     <div className="flex justify-between font-medium text-slate-700 mb-1">
                       <span>Nutritional Score (MNA / Protein Intake)</span>
@@ -513,7 +484,6 @@ export default function DigiFrailApp() {
                     </div>
                   </div>
 
-                  {/* Polypharmacy */}
                   <div>
                     <div className="flex justify-between font-medium text-slate-700 mb-1">
                       <span>Medication Count (Deprescribing)</span>
@@ -530,28 +500,26 @@ export default function DigiFrailApp() {
                     />
                     <div className="flex justify-between text-[10px] text-slate-400">
                       <span>0 meds</span>
-                      <span>12 meds (Heavy polypharmacy)</span>
+                      <span>12 meds (Polypharmacy)</span>
                     </div>
                   </div>
                 </div>
 
                 <div className="text-[11px] text-slate-500 bg-slate-50 p-2.5 rounded border border-slate-200">
-                  ? <strong>Clinical Takeaway:</strong> Optimizing both gait speed to &gt;1.0 m/s and deprescribing 2+ high-risk sedatives typically yields a &gt;15% absolute reduction in 1-year acute admissions.
+                  Targeted gait speed improvement to &gt;1.0 m/s combined with deprescribing 2+ fall-risk drugs produces an estimated ~15% absolute hazard reduction.
                 </div>
               </div>
             </div>
           </div>
         ) : (
-          /* ==================== ADMIN / ML RESEARCH PORTAL ==================== */
           <div className="space-y-6">
             {!adminAuthed ? (
-              /* Password Gate */
               <div className="max-w-md mx-auto my-16 bg-white p-8 rounded-2xl border border-slate-200 shadow-lg text-center space-y-4">
                 <div className="w-12 h-12 bg-blue-100 text-blue-700 rounded-full flex items-center justify-center mx-auto">
                   <Lock className="w-6 h-6" />
                 </div>
                 <div>
-                  <h2 className="text-xl font-bold text-slate-900">Admin & ML Research Access</h2>
+                  <h2 className="text-xl font-bold text-slate-900">Admin and ML Research Access</h2>
                   <p className="text-xs text-slate-500 mt-1">
                     Enter the access passkey to view HUNT 70+ dataset statistics, MICE preprocessing transformations, 5-model benchmarking, and calibration curves.
                   </p>
@@ -577,16 +545,15 @@ export default function DigiFrailApp() {
                 </form>
               </div>
             ) : (
-              /* Authenticated Admin Dashboard */
               <div className="space-y-6">
                 <div className="flex justify-between items-center bg-white p-4 rounded-xl border border-slate-200 shadow-sm">
                   <div>
                     <h1 className="text-xl font-bold text-slate-900 flex items-center gap-2">
                       <Database className="w-5 h-5 text-blue-600" />
-                      HUNT 70+ Machine Learning Research & Validation Suite
+                      HUNT 70+ Machine Learning Research and Validation Suite
                     </h1>
                     <p className="text-xs text-slate-500 mt-0.5">
-                      Department of Neuromedicine & Movement Science • Faculty of Medicine & Health Sciences, NTNU
+                      Department of Neuromedicine and Movement Science | Faculty of Medicine and Health Sciences, NTNU
                     </p>
                   </div>
                   <button
@@ -598,7 +565,6 @@ export default function DigiFrailApp() {
                   </button>
                 </div>
 
-                {/* Top Statistics Cards */}
                 <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
                   <div className="bg-white p-4 rounded-xl border border-slate-200 shadow-sm">
                     <span className="text-xs text-slate-500">Cohort Sample Size</span>
@@ -613,7 +579,7 @@ export default function DigiFrailApp() {
                   <div className="bg-white p-4 rounded-xl border border-slate-200 shadow-sm">
                     <span className="text-xs text-slate-500">Top Performing Model</span>
                     <div className="text-2xl font-bold text-emerald-600 mt-1">LightGBM</div>
-                    <span className="text-[11px] text-slate-400">ROC-AUC: 0.887 ± 0.012</span>
+                    <span className="text-[11px] text-slate-400">ROC-AUC: 0.887</span>
                   </div>
                   <div className="bg-white p-4 rounded-xl border border-slate-200 shadow-sm">
                     <span className="text-xs text-slate-500">12M Adverse Event Rate</span>
@@ -622,16 +588,15 @@ export default function DigiFrailApp() {
                   </div>
                 </div>
 
-                {/* Preprocessing & Missingness Stage: Before & After */}
                 <div className="bg-white rounded-xl border border-slate-200 p-5 shadow-sm space-y-4">
                   <div className="flex items-center justify-between">
                     <div>
                       <h3 className="text-base font-bold text-slate-900 flex items-center gap-2">
                         <Cpu className="w-4 h-4 text-blue-600" />
-                        Clinical Preprocessing & MICE Imputation Audit
+                        Clinical Preprocessing and MICE Imputation Audit
                       </h3>
                       <p className="text-xs text-slate-500 mt-0.5">
-                        Addressing EHR missingness patterns through Multivariate Imputation by Chained Equations (Bayesian Ridge) & Robust Scaling
+                        Addressing EHR missingness patterns through Multivariate Imputation by Chained Equations (Bayesian Ridge) and Robust Scaling
                       </p>
                     </div>
                     <span className="px-2.5 py-1 bg-emerald-50 text-emerald-700 text-xs font-mono font-medium rounded border border-emerald-200">
@@ -677,7 +642,6 @@ export default function DigiFrailApp() {
                   </div>
                 </div>
 
-                {/* 5-Model Comparative Benchmark Table */}
                 <div className="bg-white rounded-xl border border-slate-200 p-5 shadow-sm space-y-4">
                   <div>
                     <h3 className="text-base font-bold text-slate-900 flex items-center gap-2">
@@ -685,7 +649,7 @@ export default function DigiFrailApp() {
                       Multi-Model Clinical Performance Benchmark (Stratified 5-Fold CV)
                     </h3>
                     <p className="text-xs text-slate-500 mt-0.5">
-                      Evaluated on Trondelag HUNT 70+ cohort across discrimination (AUC), precision-recall balance (PR-AUC), and clinical probability calibration (Brier Score).
+                      Evaluated on Troendelag HUNT 70+ cohort across discrimination (AUC), precision-recall balance (PR-AUC), and clinical probability calibration (Brier Score).
                     </p>
                   </div>
 
@@ -694,9 +658,9 @@ export default function DigiFrailApp() {
                       <thead className="bg-slate-50 text-slate-600 uppercase border-y border-slate-200 font-semibold">
                         <tr>
                           <th className="py-2.5 px-3">Architecture</th>
-                          <th className="py-2.5 px-3">ROC-AUC (95% CI)</th>
+                          <th className="py-2.5 px-3">ROC-AUC</th>
                           <th className="py-2.5 px-3">PR-AUC</th>
-                          <th className="py-2.5 px-3">Brier Score (Calibration)</th>
+                          <th className="py-2.5 px-3">Brier Score</th>
                           <th className="py-2.5 px-3">Sensitivity</th>
                           <th className="py-2.5 px-3">Specificity</th>
                           <th className="py-2.5 px-3">F1-Score</th>
@@ -709,9 +673,9 @@ export default function DigiFrailApp() {
                             <tr key={name} className={isBest ? 'bg-blue-50/60 font-semibold' : 'hover:bg-slate-50'}>
                               <td className="py-2.5 px-3 text-slate-900 flex items-center gap-1.5">
                                 {name}
-                                {isBest && <span className="bg-blue-600 text-white text-[10px] px-1.5 py-0.2 rounded font-normal">Selected</span>}
+                                {isBest && <span className="bg-blue-600 text-white text-[10px] px-1.5 py-0.5 rounded font-normal">Selected</span>}
                               </td>
-                              <td className="py-2.5 px-3 text-blue-700 font-mono">{metrics.roc_auc} ± {metrics.roc_auc_std}</td>
+                              <td className="py-2.5 px-3 text-blue-700 font-mono">{metrics.roc_auc}</td>
                               <td className="py-2.5 px-3 text-slate-800 font-mono">{metrics.pr_auc}</td>
                               <td className="py-2.5 px-3 text-slate-800 font-mono">{metrics.brier_score}</td>
                               <td className="py-2.5 px-3 text-slate-800 font-mono">{metrics.sensitivity}</td>
@@ -725,9 +689,7 @@ export default function DigiFrailApp() {
                   </div>
                 </div>
 
-                {/* Validation Curves: ROC, PR & Calibration */}
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                  {/* ROC Curve Chart */}
                   <div className="bg-white rounded-xl border border-slate-200 p-5 shadow-sm space-y-3">
                     <div className="flex justify-between items-center">
                       <h4 className="text-sm font-bold text-slate-900">ROC Curve (Discrimination)</h4>
@@ -746,7 +708,6 @@ export default function DigiFrailApp() {
                     </div>
                   </div>
 
-                  {/* Calibration Curve Chart */}
                   <div className="bg-white rounded-xl border border-slate-200 p-5 shadow-sm space-y-3">
                     <div className="flex justify-between items-center">
                       <h4 className="text-sm font-bold text-slate-900">Reliability Calibration Curve</h4>
@@ -766,7 +727,6 @@ export default function DigiFrailApp() {
                   </div>
                 </div>
 
-                {/* Global SHAP Feature Importance */}
                 <div className="bg-white rounded-xl border border-slate-200 p-5 shadow-sm space-y-3">
                   <h4 className="text-sm font-bold text-slate-900">
                     Global SHAP Feature Importance (Mean |SHAP Value|)
@@ -789,10 +749,9 @@ export default function DigiFrailApp() {
         )}
       </main>
 
-      {/* Footer */}
       <footer className="bg-white border-t border-slate-200 py-4 px-6 text-center text-xs text-slate-500">
         <p>
-          NTNU Faculty of Medicine and Health Sciences • Trondelag Health Study (HUNT) Machine Learning Interface • Digi-FrailCare Pilot
+          NTNU Faculty of Medicine and Health Sciences | Troendelag Health Study (HUNT) Machine Learning Interface | Digi-FrailCare Pilot
         </p>
       </footer>
     </div>
